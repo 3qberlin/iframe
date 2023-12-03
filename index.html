@@ -9,6 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
         integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -29,6 +31,8 @@
     <input type="button" value="刪除全部購物車" class="deleteAllCartBtn">
 </body>
 <script>
+
+
     const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
     const apiKey = "berlin/";
     const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
@@ -92,10 +96,27 @@
         })
     }
 
-    deleteAllCartBtn.addEventListener('click',function(){
-        deleteAllCarts();
+    deleteAllCartBtn.addEventListener('click', function () {
+
+        // Swal.fire("購物車已清空");
+        Swal.fire({
+            icon: 'question',
+            title: '清空購物車',
+            text: '請確認是否清空？',
+            showCancelButton: true,
+        }).then((result) => {
+            console.log(result)
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'You did it',
+                    text: 'I\'m new alert',
+                })
+                deleteAllCarts();
+            }
+        })
     });
-    
+
     function deleteAllCarts() {
         axios.delete(`${customerUrl}${apiKey}carts`).then(function (res) {
             console.log('delete ok');
