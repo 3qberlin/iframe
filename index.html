@@ -1,100 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IframeTest</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <title>F2E</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+        integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
-    <div class="card">
-    <!-- <div class="container"> -->
-    <form class="row card-body d-flex flex-wrap row-cols-1 rol-cols-md-auto m-0 p-0 p-12 d-inline-block" id="myForm">
-        <div class="col-auto mb-12">
-            <div class="d-flex flex-nowrap">
-                <div class="input-group input-daterange">
-
-
-                    <span class="input-group-text border-0 m-0">從</span>
-                    <input type="text" id="inputDate1" placeholder="請選擇日期"
-                        class="form-control form-control-sm m-0 p-0 border-secondary rounded-1 min-96px">
-                </div>
-                <div class="input-group input-daterange">
-                    <span class="input-group-text border-0 m-0">到</span>
-                    <input type="text" id="inputDate2" placeholder="請選擇日期"
-                        class="form-control form-control-sm m-0 p-0 border-secondary rounded-1 min-96px">
-                </div>
-
-            </div>
-        </div>
-        <div class="col-auto mb-12">
-            <div class="input-group-addon input-group-sm overflow-auto d-flex flex-nowrap">
-                <div class="btn-group " role="group" aria-label="dayInputGroup">
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="prevDay"><i
-                            class="bi bi-arrow-left"></i></button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8 text-nowrap" id="today">本日</button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="nextDay"><i
-                            class="bi bi-arrow-right"></i></button>
-                </div>
-                <div class="btn-group ms-16" role="group" aria-label="weekInputGroup">
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="prevWeek"><i
-                            class="bi bi-arrow-left"></i></button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8 text-nowrap"
-                        id="thisWeek">本週</button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="nextWeek"><i
-                            class="bi bi-arrow-right"></i></button>
-                </div>
-                <div class="btn-group ms-16" role="group" aria-label="monthInputGroup">
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="prevMonth"><i
-                            class="bi bi-arrow-left"></i></button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8 text-nowrap"
-                        id="thisMonth">本月</button>
-                    <button type="button" class="btn btn-outline-secondary p-0 px-8" id="nextMonth"><i
-                            class="bi bi-arrow-right"></i></button>
-                </div>
-                <button class="btn btn-outline-secondary py-6 px-8 ms-16 text-nowrap" id="thisYear">今年</button>
-            </div>
-        </div>
-        <div class="col-12 d-flex flex-wrap">
-            <div class="col-auto mb-12">
-                <div class="input-group input-group-sm mb-3">
-                    <button class="btn btn-outline-secondary" type="button">付款方式</button>
-                    <select class="form-select border-1 border-secondary" id="temp002" aria-label="button addon">
-                        <option selected>全部</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three lorem10</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-auto mb-12 ms-0 ms-lg-5">
-                <div class="input-group input-group-sm mb-3">
-                    <button class="btn btn-outline-secondary" type="button">對帳結果</button>
-                    <select class="form-select border-1 border-secondary" id="temp003" aria-label="button addon">
-                        <option selected>全部</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-auto mb-12 ms-0 ms-lg-5">
-                <div class="input-group input-group-sm mb-3">
-                    <button for="temp001" class="btn btn-outline-secondary">訂單編號</button>
-                    <input type="text" name="" id="temp001" class="form-control border-1 border-secondary">
-                </div>
-            </div>
-        </div>
-        <div class="col-12 d-flex justify-content-center justify-content-md-end">
-            <input type="reset" value="清除" class="btn btn-yellow reset">
-            <input type="submit" value="送出" class="btn btn-primary ms-12">
-        </div>
-    </form>
-    <!-- </div> -->
-</div>
+    <input type="text" name="" id="" class="txt" placeholder="請輸入待辦事項">
+    <input type="button" value="儲存待辦" class="save">
+    <ul class="list"></ul>
 </body>
+<script>
+    const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
+    const apiKey = "berlin/";
+    const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
+    const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
+
+    axios.get(`${customerUrl}${apiKey}products`).then(function(res){
+        console.log('res',res);
+    }) .catch(function (error) {
+      // 处理请求失败的情况
+      console.error("添加产品到购物车失败", error);
+    });
+</script>
+
 </html>
