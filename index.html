@@ -97,33 +97,42 @@
     }
 
     deleteAllCartBtn.addEventListener('click', function () {
-
-        // Swal.fire("購物車已清空");
-        Swal.fire({
-            icon: 'question',
-            title: '清空購物車',
-            text: '請確認是否清空？',
-            showCancelButton: true,
-        }).then((result) => {
-            console.log(result)
-            if (result.isConfirmed) {
+        axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
+            cartData = res.data.carts;
+            if (cartData.length <= 0) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'You did it',
-                    text: 'I\'m new alert',
-                })
-                deleteAllCarts();
-            }
+                    icon: "error",
+                    title: "Oops...",
+                    text: "購物車無任何產品"
+                });
+                return;
+            } Swal.fire({
+                icon: 'question',
+                title: '清空購物車',
+                text: '請確認是否清空？',
+                showCancelButton: true,
+            }).then((result) => {
+                console.log(result);
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'You did it',
+                        text: 'I\'m new alert',
+                    })
+                    deleteAllCarts();
+                }
+            })
         })
     });
 
     function deleteAllCarts() {
         axios.delete(`${customerUrl}${apiKey}carts`).then(function (res) {
             console.log('delete ok');
-            init();
+            getCartList();
 
         }).catch(function (error) {
             console.log(error);
+
         })
     }
 
