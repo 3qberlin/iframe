@@ -36,8 +36,10 @@
 
     const productList = document.querySelector('.productList');
     const productCategory = document.querySelector('.productCategory');
+    const cartList = document.querySelector('.cartList');
 
     let productData = [];
+    let cartData = [];
 
     function getProductList() {
         axios.get(`${customerUrl}${apiKey}products`).then(function (res) {
@@ -46,6 +48,7 @@
             productData = res.data.products;
             renderProductList();
             renderOptions();
+            getCartList();
         }).catch(function (error) {
             // 請求失敗資料回傳
             console.error("失敗", error);
@@ -73,6 +76,21 @@
         productCategory.innerHTML = str;
     }
 
+    function getCartList() {
+        axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
+            cartData = res.data.carts;
+            console.log(cartData);
+            let str = '';
+            cartData.forEach(function (item, index) {
+                str += `
+                    <li>${item.product.title}，數量：${item.quantity}個</li>
+                `
+            });
+            cartList.innerHTML = str;
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
 
 </script>
 
