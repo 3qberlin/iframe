@@ -22,6 +22,11 @@
     <ul class="productList">
 
     </ul>
+    <h2>購物車列表</h2>
+    <ul class="cartList">
+
+    </ul>
+    <input type="button" value="刪除全部購物車" class="deleteAllCartBtn">
 </body>
 <script>
     const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
@@ -30,6 +35,7 @@
     const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
 
     const productList = document.querySelector('.productList');
+    const productCategory = document.querySelector('.productCategory');
 
     let productData = [];
 
@@ -39,6 +45,7 @@
             // 把值，直接給陣列，不用push()的方式因為會造成二維陣列
             productData = res.data.products;
             renderProductList();
+            renderOptions();
         }).catch(function (error) {
             // 請求失敗資料回傳
             console.error("失敗", error);
@@ -56,6 +63,17 @@
         })
         productList.innerHTML = str;
     }
+    function renderOptions() {
+        let str = '';
+        productData.forEach(function (item, index) {
+            str += `
+            <option value="">${item.title}</option>
+            `
+        });
+        productCategory.innerHTML = str;
+    }
+
+
 </script>
 
 </html>
