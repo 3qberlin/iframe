@@ -12,9 +12,16 @@
 </head>
 
 <body>
-    <input type="text" name="" id="" class="txt" placeholder="請輸入待辦事項">
-    <input type="button" value="儲存待辦" class="save">
-    <ul class="list"></ul>
+    <h2>產品列表</h2>
+    <select name="" id="" class="productCategory">
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
+    </select>
+    <ul class="productList">
+
+    </ul>
 </body>
 <script>
     const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
@@ -22,12 +29,33 @@
     const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
     const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
 
-    axios.get(`${customerUrl}${apiKey}products`).then(function(res){
-        console.log('res',res);
-    }) .catch(function (error) {
-      // 处理请求失败的情况
-      console.error("添加产品到购物车失败", error);
-    });
+    const productList = document.querySelector('.productList');
+
+    let productData = [];
+
+    function getProductList() {
+        axios.get(`${customerUrl}${apiKey}products`).then(function (res) {
+            console.log('res', res);
+            // 把值，直接給陣列，不用push()的方式因為會造成二維陣列
+            productData = res.data.products;
+            renderProductList();
+        }).catch(function (error) {
+            // 請求失敗資料回傳
+            console.error("失敗", error);
+        });
+    }
+    function renderProductList() {
+        let str = '';
+        productData.forEach(function (item, index) {
+            str += `
+            <li>
+                ${item.category}
+                ${item.title}
+            </li>
+            `
+        })
+        productList.innerHTML = str;
+    }
 </script>
 
 </html>
