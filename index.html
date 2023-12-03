@@ -63,12 +63,37 @@
         productData.forEach(function (item, index) {
             str += `
             <li>
-                ${item.category}
                 ${item.title}
+                <input type="button" value="加入購物車" id="${item.id}" class="js-addCart">
             </li>
             `
         })
         productList.innerHTML = str;
+    }
+
+    productList.addEventListener('click', function (e) {
+        const addCartClass = e.target.getAttribute("class");
+        if (addCartClass === null) {
+            console.log('null');
+            return;
+        } else {
+            const productId = e.target.getAttribute("id");
+            addProductToCarts(productId);
+        }
+    })
+
+    function addProductToCarts(id) {
+        const obj = {
+            data: {
+                productId: id,
+                quantity: 1
+            }
+        };
+        axios.post(`${customerUrl}${apiKey}carts`, obj).then(function (res) {
+            getCartList();
+        }).catch(function (error) {
+            console.log(error);
+        })
     }
     function renderOptions() {
         let str = '';
@@ -140,6 +165,8 @@
         getProductList();
         getCartList();
     }
+
+    init();
 </script>
 
 </html>
