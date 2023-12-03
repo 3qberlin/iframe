@@ -37,6 +37,7 @@
     const productList = document.querySelector('.productList');
     const productCategory = document.querySelector('.productCategory');
     const cartList = document.querySelector('.cartList');
+    const deleteAllCartBtn = document.querySelector('.deleteAllCartBtn');
 
     let productData = [];
     let cartData = [];
@@ -48,7 +49,6 @@
             productData = res.data.products;
             renderProductList();
             renderOptions();
-            getCartList();
         }).catch(function (error) {
             // 請求失敗資料回傳
             console.error("失敗", error);
@@ -92,6 +92,24 @@
         })
     }
 
+    deleteAllCartBtn.addEventListener('click',function(){
+        deleteAllCarts();
+    });
+    
+    function deleteAllCarts() {
+        axios.delete(`${customerUrl}${apiKey}carts`).then(function (res) {
+            console.log('delete ok');
+            init();
+
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function init() {
+        getProductList();
+        getCartList();
+    }
 </script>
 
 </html>
