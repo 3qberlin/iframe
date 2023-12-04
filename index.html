@@ -13,6 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="all.css">
+
 </head>
 
 <body>
@@ -387,40 +388,48 @@
             <h3 class="section-title">我的購物車</h3>
             <div class="overflowWrap">
                 <table class="shoppingCart-table">
-                    <tr>
-                        <th width="40%">品項</th>
-                        <th width="15%">單價</th>
-                        <th width="15%">數量</th>
-                        <th width="15%">金額</th>
-                        <th width="15%"></th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="cardItem-title">
-                                <img src="https://i.imgur.com/HvT3zlU.png" alt="">
-                                <p>Antony 雙人床架／雙人加大</p>
-                            </div>
-                        </td>
-                        <td>NT$12,000</td>
-                        <td>1</td>
-                        <td>NT$12,000</td>
-                        <td class="discardBtn">
-                            <a href="#" class="material-icons">
-                                clear
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="discardAllBtn">刪除所有品項</a>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <p>總金額</p>
-                        </td>
-                        <td>NT$13,980</td>
-                    </tr>
+                    <thead>
+
+
+                        <tr>
+                            <th width="40%">品項</th>
+                            <th width="15%">單價</th>
+                            <th width="15%">數量</th>
+                            <th width="15%">金額</th>
+                            <th width="15%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>
+                                <div class="cardItem-title">
+                                    <img src="https://i.imgur.com/HvT3zlU.png" alt="">
+                                    <p>Antony 雙人床架／雙人加大</p>
+                                </div>
+                            </td>
+                            <td>NT$12,000</td>
+                            <td>1</td>
+                            <td>NT$12,000</td>
+                            <td class="discardBtn">
+                                <a href="#" class="material-icons">
+                                    clear
+                                </a>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <a href="#" class="discardAllBtn">刪除所有品項</a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <p>總金額</p>
+                            </td>
+                            <td>NT$13,980</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </section>
@@ -470,7 +479,7 @@
                 <input type="submit" value="送出預訂資料" class="orderInfo-btn">
             </form>
         </section>
-
+        <script src="js.js"></script>
         <!-- 預設 JS，請同學不要修改此處 -->
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -532,144 +541,8 @@
                 menu.classList.remove('openMenu');
             }
         </script>
-        <script>
 
 
-            const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
-            const apiKey = "berlin/";
-            const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
-            const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
-
-            const productList = document.querySelector('.productList');
-            const productCategory = document.querySelector('.productCategory');
-            const cartList = document.querySelector('.cartList');
-            const deleteAllCartBtn = document.querySelector('.deleteAllCartBtn');
-
-            let productData = [];
-            let cartData = [];
-
-            function getProductList() {
-                axios.get(`${customerUrl}${apiKey}products`).then(function (res) {
-                    console.log('res', res);
-                    // 把值，直接給陣列，不用push()的方式因為會造成二維陣列
-                    productData = res.data.products;
-                    renderProductList();
-                    renderOptions();
-                }).catch(function (error) {
-                    // 請求失敗資料回傳
-                    console.error("失敗", error);
-                });
-            }
-            function renderProductList() {
-                let str = '';
-                productData.forEach(function (item, index) {
-                    str += `
-            <li>
-                ${item.title}
-                <input type="button" value="加入購物車" id="${item.id}" class="js-addCart">
-            </li>
-            `
-                })
-                productList.innerHTML = str;
-            }
-
-            productList.addEventListener('click', function (e) {
-                const addCartClass = e.target.getAttribute("class");
-                if (addCartClass === null) {
-                    console.log('null');
-                    return;
-                } else {
-                    const productId = e.target.getAttribute("id");
-                    addProductToCarts(productId);
-                }
-            })
-
-            function addProductToCarts(id) {
-                const obj = {
-                    data: {
-                        productId: id,
-                        quantity: 1
-                    }
-                };
-                axios.post(`${customerUrl}${apiKey}carts`, obj).then(function (res) {
-                    getCartList();
-                }).catch(function (error) {
-                    console.log(error);
-                })
-            }
-            function renderOptions() {
-                let str = '';
-                productData.forEach(function (item, index) {
-                    str += `
-            <option value="">${item.title}</option>
-            `
-                });
-                productCategory.innerHTML = str;
-            }
-
-            function getCartList() {
-                axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
-                    cartData = res.data.carts;
-                    console.log(cartData);
-                    let str = '';
-                    cartData.forEach(function (item, index) {
-                        str += `
-                    <li>${item.product.title}，數量：${item.quantity}個</li>
-                `
-                    });
-                    cartList.innerHTML = str;
-                }).catch(function (error) {
-                    console.log(error);
-                })
-            }
-
-            deleteAllCartBtn.addEventListener('click', function () {
-                axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
-                    cartData = res.data.carts;
-                    if (cartData.length <= 0) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "購物車無任何產品"
-                        });
-                        return;
-                    } Swal.fire({
-                        icon: 'question',
-                        title: '清空購物車',
-                        text: '請確認是否清空？',
-                        showCancelButton: true,
-                    }).then((result) => {
-                        console.log(result);
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'You did it',
-                                text: 'I\'m new alert',
-                            })
-                            deleteAllCarts();
-                        }
-                    })
-                })
-            });
-
-            function deleteAllCarts() {
-                axios.delete(`${customerUrl}${apiKey}carts`).then(function (res) {
-                    console.log('delete ok');
-                    getCartList();
-
-                }).catch(function (error) {
-                    console.log(error);
-
-                })
-            }
-
-            function init() {
-                getProductList();
-                getCartList();
-            }
-
-            init();
-        </script>
     </body>
 
 
