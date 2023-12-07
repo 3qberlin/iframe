@@ -3,26 +3,77 @@ const apiKey = "berlin/";
 const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
 const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
 
-const productSelect = document.querySelector('.productSelect');
-
-productSelect.addEventListener('change', function (e) {
-    const onOption = e.target.value;
-    console.log('onOption', onOption);
-    getProduct(onOption);
-})
-
 window.onload = (function () {
     getProduct('全部')
 })
+
+const productSelect = document.querySelector('.productSelect');
 const productWrap = document.querySelector('.productWrap');
-// const productCategory = document.querySelector('.productCategory');
-const shoppingCartTable = document.querySelector('.shoppingCart-table tbody');
+const thead = document.querySelector('.shoppingCart-table thead');
+const tbody = document.querySelector('.shoppingCart-table tbody');
+const tfoot = document.querySelector('.shoppingCart-table tfoot');
 const discardAllBtn = document.querySelector('.discardAllBtn');
-console.log('shoppingCartTable');
+const totalCost = document.querySelector('.totalCost');
+const customerName = document.getElementById('customerName');
+const customerPhone = document.getElementById('customerPhone');
+const customerEmail = document.getElementById('customerEmail');
+const customerAddress = document.getElementById('customerAddress');
+const customerTradeWay = document.getElementById('tradeWay');
+const submit = document.querySelector('.submit');
+const nameNotice = document.querySelector('[data-message="姓名"]');
+const phoneNotice = document.querySelector('[data-message="電話"]');
+const emailNotice = document.querySelector('[data-message="Email"]');
+const addressNotice = document.querySelector('[data-message="寄送地址"]');
+const form = document.querySelector('form');
 
 let productData = [];
 let cartData = [];
 let ProObj = {};
+
+productSelect.addEventListener('change', function (e) {
+    const onOption = e.target.value;
+    getProduct(onOption);
+})
+
+submit.addEventListener('click', function (e) {
+    e.preventDefault();
+    let customerNameVal = customerName.value;
+    let customerPhoneVal = customerPhone.value;
+    let customerEmailVal = customerEmail.value;
+    let customerAddressVal = customerAddress.value;
+    let customerTradeWayVal = customerTradeWay.value;
+    let userData = {
+        data: {
+            user: {
+                name: customerNameVal,
+                tel: customerPhoneVal,
+                email: customerEmailVal,
+                address: customerAddressVal,
+                payment: customerTradeWayVal
+            }
+        }
+    };
+    if (customerNameVal && customerPhoneVal && customerEmailVal && customerAddressVal && customerTradeWayVal !== '') {
+        let url = `${customerUrl}${apiKey}orders`
+        axios
+            .post(
+                url,
+                userData
+            )
+            .then(function (res) {
+                form.reset();
+                Swal.fire("訂購成功 o(^▽^)o");
+            })
+            .catch(function (error) {
+                Swal.fire("請將商品加入購物車 或 填寫完整預訂資料 (^～^;)ゞ");
+                console.error("訂單資訊失敗", error.response);
+            });
+    } else {
+        Swal.fire("請完整填妥所有資料");
+        return;
+    }
+})
+
 
 function getProduct(onOption) {
     let url = `${customerUrl}${apiKey}products`;
@@ -59,12 +110,9 @@ function renderProduct(product) {
     productWrap.innerHTML = str;
 }
 
-
-
 productWrap.addEventListener('click', function (e) {
     const addCartClass = e.target.getAttribute("class");
     if (addCartClass === null) {
-        console.log('null');
         return;
     } else {
         const productId = e.target.getAttribute("id");
@@ -81,10 +129,12 @@ function addProductToCarts(id) {
     };
     axios.post(`${customerUrl}${apiKey}carts`, obj).then(function (res) {
         getCartList();
+        Swal.fire("加入購物車成功 ✧◝(⁰▿⁰)◜✧");
     }).catch(function (error) {
         console.log(error);
     })
 }
+
 function renderOptions() {
     let str = '';
     productData.forEach(function (item, index) {
@@ -97,13 +147,10 @@ function renderOptions() {
 
 function getCartList() {
     axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
-        console.log('res', res);
         cartData = res.data.carts;
-        console.log('cartData', cartData);
         let str = '';
         cartData.forEach(function (item, index) {
             str += `
-
                     <tr>
                         <td>
                             <div class="cardItem-title">
@@ -120,80 +167,145 @@ function getCartList() {
                             </span>
                         </td>
                     </tr>
-                   
-
                 `
         });
-        shoppingCartTable.innerHTML = str;
+        tbody.innerHTML = str;
+        let str3 = '';
+        let totalCostCount = 0;
+        cartData.forEach(function (item, index) {
+            totalCostCount += parseInt(item.product.price);
+            return;
+        })
+        if (cartData.length >= 1) {
+            cartData.forEach(function (item, index) {
+                str2 = `
+                <th width="40%">品項</th>
+                <th width="15%">單價</th>
+                <th width="15%">數量</th>
+                <th width="15%">金額</th>
+                <th width="15%"></th>
+            </tr>
+                `
+                str3 = `
+                <tr>
+                <td>
+                    <a href="#" class="discardAllBtn">刪除所有品項</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                    <p>總金額</p>
+                </td>
+                <td>NT${totalCostCount}</td>
+            </tr>
+                `
+            })
+            tfoot.innerHTML = str3;
+        } else {
+            tfoot.innerHTML = '挑個產品吧 ✧*｡٩(ˊᗜˋ*)و✧*｡';
+            thead.innerHTML = '';
+        }
     }).catch(function (error) {
         console.log(error);
     })
 }
 
-shoppingCartTable.addEventListener('click', function (e) {
+tbody.addEventListener('click', function (e) {
     e.preventDefault;
-    console.log(e.target.getAttribute('class'));
     const targetClass = e.target.getAttribute('class');
-    console.log('targetClass', targetClass);
     if (targetClass === null) {
-        console.log('沒有點到');
         return;
     } else if (targetClass === "material-icons deleteThis") {
-        console.log('點到了');
         const productId = e.target.getAttribute("id");
-        console.log('productId', productId);
         deleteOneProduct(productId);
     }
 })
 
-discardAllBtn.addEventListener('click', function () {
-    axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
-        cartData = res.data.carts;
-        if (cartData.length <= 0) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "購物車無任何產品"
-            });
-            return;
-        } Swal.fire({
-            icon: 'question',
-            title: '清空購物車',
-            text: '請確認是否清空？',
-            showCancelButton: true,
-        }).then((result) => {
-            console.log(result);
-            if (result.isConfirmed) {
+tfoot.addEventListener('click', function (e) {
+    tfootStatus = e.target.getAttribute('class');
+    if (tfootStatus !== 'discardAllBtn') {
+        return;
+    } else {
+        axios.get(`${customerUrl}${apiKey}carts`).then(function (res) {
+            cartData = res.data.carts;
+            if (cartData.length <= 0) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'You did it',
-                    text: 'I\'m new alert',
-                })
-                deleteAllCarts();
-            }
-        })
-    })
-});
+                    icon: "error",
+                    title: "Oops...",
+                    text: "購物車無任何產品"
+                });
+                return;
+            } Swal.fire({
+                icon: 'question',
+                title: '清空購物車',
+                text: '請確認是否清空？',
+                showCancelButton: true,
+            }).then((result) => {
+                console.log(result);
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '成功刪除 (´･ω･`)  '
+                    })
+                    deleteAllCarts();
+                }
+            })
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+})
 
 function deleteAllCarts() {
     axios.delete(`${customerUrl}${apiKey}carts`).then(function (res) {
-        console.log('delete ok');
         getCartList();
 
     }).catch(function (error) {
         console.log(error);
-
     })
 }
 
 function deleteOneProduct(id) {
     axios.delete(`${customerUrl}${apiKey}carts/${id}`).then(function (res) {
-        console.log('delete ok');
         getCartList();
     }).catch(function (error) {
         console.log(error);
     })
 }
+
+customerName.addEventListener('input', function () {
+    const customerNameVal = this.value.trim();
+    if (customerNameVal !== '') {
+        nameNotice.style.display = 'none';
+    } else {
+        nameNotice.style.display = 'block';
+    }
+});
+customerPhone.addEventListener('input', function () {
+    const customerPhoneVal = this.value.trim();
+    if (customerPhoneVal !== '') {
+        phoneNotice.style.display = 'none';
+    } else {
+        phoneNotice.style.display = 'block';
+    }
+});
+customerEmail.addEventListener('input', function () {
+    const customerEmailVal = this.value.trim();
+    if (customerEmailVal !== '') {
+        emailNotice.style.display = 'none';
+    } else {
+        emailNotice.style.display = 'block';
+    }
+});
+customerAddress.addEventListener('input', function () {
+    const customerAddressVal = this.value.trim();
+    if (customerAddressVal !== '') {
+        addressNotice.style.display = 'none';
+    } else {
+        addressNotice.style.display = 'block';
+    }
+});
+
 function init() {
     getProductList();
     getCartList();
