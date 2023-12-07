@@ -202,8 +202,8 @@ function getCartList() {
             })
             tfoot.innerHTML = str3;
         } else {
-            tfoot.innerHTML = '挑個產品吧 ✧*｡٩(ˊᗜˋ*)و✧*｡';
-            thead.innerHTML = '';
+            tfoot.innerHTML = '<p class="text-align:center;width:100%;">挑個產品吧 ✧*｡٩(ˊᗜˋ*)و✧*｡</p>';
+            // thead.innerHTML = '';
         }
     }).catch(function (error) {
         console.log(error);
