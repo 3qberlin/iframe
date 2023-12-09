@@ -1,7 +1,5 @@
-const toke = "PRddnFpoPwOwsLxnTUe9usGkujN2";
 const apiKey = "berlin/";
 const customerUrl = "https://livejs-api.hexschool.io/api/livejs/v1/customer/";
-const adminUrl = "https://livejs-api.hexschool.io/api/livejs/v1/admin/";
 
 window.onload = (function () {
     getProduct('全部')
@@ -62,6 +60,7 @@ submit.addEventListener('click', function (e) {
             )
             .then(function (res) {
                 form.reset();
+                getCartList();
                 Swal.fire("訂購成功 o(^▽^)o");
             })
             .catch(function (error) {
@@ -100,7 +99,7 @@ function renderProduct(product) {
                     <h4 class="productType">新品</h4>
                     <img src="${item.images}"
                         alt="">
-                    <a href="#" class="addCardBtn js-addCart" id="${item.id}">加入購物車</a>
+                    <a href="#" class="js-addCart" id="${item.id}">加入購物車</a>
                     <h3>${item.title}</h3>
                     <del class="originPrice">NT$${item.origin_price}</del>
                     <p class="nowPrice">NT$${item.price}</p>
@@ -112,34 +111,42 @@ function renderProduct(product) {
 
 productWrap.addEventListener('click', function (e) {
     const addCartClass = e.target.getAttribute("class");
-    if (addCartClass === null) {
+    if (addCartClass !== 'js-addCart') {
         return;
     } else {
         const productId = e.target.getAttribute("id");
-        addProductToCarts(productId);
+
+        const obj = {
+            data: {
+                productId: productId,
+                quantity: 1
+            }
+        };
+        addProductToCarts(obj);
     }
 })
 
-function addProductToCarts(id) {
-    const obj = {
-        data: {
-            productId: id,
-            quantity: 1
-        }
-    };
+function addProductToCarts(obj) {
+ 
+
+
     axios.post(`${customerUrl}${apiKey}carts`, obj).then(function (res) {
-        getCartList();
+        let resData = res;
+
         Swal.fire("加入購物車成功 ✧◝(⁰▿⁰)◜✧");
+        getCartList();
     }).catch(function (error) {
         console.log(error);
     })
+
+
 }
 
 function renderOptions() {
     let str = '';
     productData.forEach(function (item, index) {
         str += `
-<option value="">${item.title}??</option>
+<option value="">${item.title}</option>
 `
     });
     productSelect.innerHTML = str;
@@ -159,7 +166,7 @@ function getCartList() {
                             </div>
                         </td>
                         <td>NT$${item.product.price}</td>
-                        <td>1</td>
+                        <td>${item.quantity}</td>
                         <td>NT$${item.product.price}</td>
                         <td class="discardBtn">
                             <span class="material-icons deleteThis" id="${item.id}">
@@ -203,7 +210,7 @@ function getCartList() {
             tfoot.innerHTML = str3;
         } else {
             tfoot.innerHTML = '<p class="text-align:center;width:100%;">挑個產品吧 ✧*｡٩(ˊᗜˋ*)و✧*｡</p>';
-            // thead.innerHTML = '';
+            thead.innerHTML = '';
         }
     }).catch(function (error) {
         console.log(error);
@@ -241,7 +248,6 @@ tfoot.addEventListener('click', function (e) {
                 text: '請確認是否清空？',
                 showCancelButton: true,
             }).then((result) => {
-                console.log(result);
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: 'success',
@@ -307,7 +313,6 @@ customerAddress.addEventListener('input', function () {
 });
 
 function init() {
-    getProductList();
     getCartList();
 }
 

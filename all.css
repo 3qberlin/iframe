@@ -2,19 +2,87 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -24,8 +92,17 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -33,16 +110,20 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: '';
   content: none;
 }
@@ -52,14 +133,17 @@ table {
   border-spacing: 0;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
 
-html, body {
+html,
+body {
   line-height: 1.5;
 }
 
@@ -89,13 +173,13 @@ body {
   display: flex;
   position: relative;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1110px) {
@@ -114,7 +198,7 @@ body {
 .topBar a:hover {
   color: #6A33F8;
   -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .topBar-menu {
@@ -122,7 +206,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   background-color: #FFFFFF;
 }
 
@@ -137,7 +221,7 @@ body {
 
 .topBar-menu a:hover {
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
 
 .topBar-menu li:last-child a {
@@ -157,18 +241,22 @@ body {
     -webkit-transition: all .2s;
     transition: all .2s;
   }
+
   .topBar-menu li {
     width: 100%;
   }
+
   .topBar-menu a {
     text-align: center;
     padding: 15px;
     font-size: 1rem;
   }
+
   .topBar-menu a:hover {
     background-color: #6A33F8;
     color: #FFFFFF;
   }
+
   .topBar-menu li:last-child a {
     padding: 15px;
   }
@@ -232,15 +320,15 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   margin-bottom: 60px;
 }
 
 .bedAdvantage-img {
   max-height: 140px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   margin-bottom: 10px;
 }
 
@@ -271,7 +359,8 @@ body {
   margin: 0 auto;
 }
 
-.compare-table th, .compare-table td {
+.compare-table th,
+.compare-table td {
   text-align: center;
   padding: 15px 0;
 }
@@ -292,19 +381,23 @@ body {
 .compare-table .material-icons {
   color: #6A33FF;
   -webkit-transform: scale(1.5);
-          transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 @media (max-width: 767px) {
   .compare-table {
     width: 500px;
   }
-  .compare-table th, .compare-table td {
+
+  .compare-table th,
+  .compare-table td {
     padding: 10px 0;
   }
+
   .compare-table th {
     font-size: 1rem;
   }
+
   .compare-table tr td:first-child {
     font-size: 1rem;
   }
@@ -341,7 +434,8 @@ body {
   display: none;
 }
 
-.gallery-top, .gallery-bottom {
+.gallery-top,
+.gallery-bottom {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -376,11 +470,11 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .recommend-img {
@@ -388,8 +482,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin-bottom: 3px;
 }
 
@@ -419,11 +513,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -432,16 +526,20 @@ body {
   .transport-intro {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
 }
 
-.transport-intro li:nth-child(1), .transport-intro li:nth-child(2), .transport-intro li:nth-child(3) {
+.transport-intro li:nth-child(1),
+.transport-intro li:nth-child(2),
+.transport-intro li:nth-child(3) {
   position: relative;
 }
 
-.transport-intro li:nth-child(1)::after, .transport-intro li:nth-child(2)::after, .transport-intro li:nth-child(3)::after {
+.transport-intro li:nth-child(1)::after,
+.transport-intro li:nth-child(2)::after,
+.transport-intro li:nth-child(3)::after {
   content: "";
   position: absolute;
   top: 49px;
@@ -453,7 +551,10 @@ body {
 }
 
 @media (max-width: 767px) {
-  .transport-intro li:nth-child(1)::after, .transport-intro li:nth-child(2)::after, .transport-intro li:nth-child(3)::after {
+
+  .transport-intro li:nth-child(1)::after,
+  .transport-intro li:nth-child(2)::after,
+  .transport-intro li:nth-child(3)::after {
     position: static;
     margin-top: 25px;
     border: 10px solid #000000;
@@ -468,15 +569,15 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .transport-card .cardImg {
@@ -488,11 +589,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin-bottom: 8px;
 }
 
@@ -531,7 +632,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .productCard {
@@ -545,7 +646,7 @@ body {
   min-height: 300px;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .productCard a {
@@ -563,7 +664,8 @@ body {
   background-color: #301E5F;
 }
 
-.productCard a, .productCard h3 {
+.productCard a,
+.productCard h3 {
   font-size: 1.25rem;
 }
 
@@ -607,7 +709,8 @@ body {
   font-size: 1.25rem;
 }
 
-.shoppingCart-table th, .shoppingCart-table td {
+.shoppingCart-table th,
+.shoppingCart-table td {
   padding: 15px;
   vertical-align: middle;
 }
@@ -620,7 +723,8 @@ body {
   border-bottom: 1px solid #B9B9B9;
 }
 
-.shoppingCart-table tr:first-child, .shoppingCart-table tr:last-child {
+.shoppingCart-table tr:first-child,
+.shoppingCart-table tr:last-child {
   border-bottom: 0;
 }
 
@@ -635,8 +739,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .cardItem-title img {
@@ -659,7 +763,7 @@ body {
 .discardBtn a:hover {
   color: #6A33F8;
   -webkit-transform: scale(1.3);
-          transform: scale(1.3);
+  transform: scale(1.3);
 }
 
 .discardAllBtn {
@@ -714,7 +818,7 @@ body {
   left: 103%;
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   color: #C72424;
 }
 
@@ -722,7 +826,7 @@ body {
   .orderInfo-message {
     position: static;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -750,13 +854,13 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .orderPage-list .discardAllBtn {
   -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
   margin-bottom: 12px;
 }
 
@@ -765,7 +869,8 @@ body {
   width: 100%;
 }
 
-.orderPage-table th, .orderPage-table td {
+.orderPage-table th,
+.orderPage-table td {
   padding: 10px;
   text-align: left;
   border: 1px solid #000000;
@@ -833,4 +938,9 @@ body {
 .orderTableWrap::-webkit-scrollbar {
   display: none;
 }
+
 /*# sourceMappingURL=all.css.map */
+
+.table-a {
+  color: black !important;
+}
